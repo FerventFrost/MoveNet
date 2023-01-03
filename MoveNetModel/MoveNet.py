@@ -1,3 +1,10 @@
+'''
+TensorFlow Tutorial for Movenet: 
+    https://www.tensorflow.org/hub/tutorials/movenet
+github Project:
+    https://github.com/FerventFrost/MoveNet
+'''
+
 import tensorflow as tf
 import tensorflow_hub as hub
 from tensorflow_docs.vis import embed
@@ -5,7 +12,6 @@ import numpy as np
 import cv2
 
 import UtilityFunctions as UTIF
-
 
 
 def movenet(inputImage, ImportedModel):
@@ -29,13 +35,12 @@ def movenet(inputImage, ImportedModel):
 if __name__ == "__main__":
 
     # Download Model and Load
-    ModelURL = "https://tfhub.dev/google/movenet/singlepose/lightning"
+    ModelURL = "https://tfhub.dev/google/movenet/singlepose/lightning/4"
     input_size = 192
-    ModelAddress = UTIF.DownloadModel(ModelURL, "movenet_lightning")
-    Imported = UTIF.LoadModel(ModelAddress)
+    Imported = UTIF.LoadModel(ModelURL)
 
     # Read Image, Decode, and Resize it
-    ImagePath = "Test/P1.jpeg"
+    ImagePath = "Test/P2.jpg"
     Image = tf.io.read_file(ImagePath)
     Image = tf.image.decode_jpeg(Image)
     InputImage = tf.expand_dims(Image, axis=0)

@@ -3,7 +3,6 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from tensorflow.python.keras.utils.data_utils import get_file
 
-from tensorflow_docs.vis import embed
 import numpy as np
 import cv2
 
@@ -11,10 +10,6 @@ import cv2
 from matplotlib import pyplot as plt
 from matplotlib.collections import LineCollection
 import matplotlib.patches as patches
-
-# Some modules to display an animation using imageio.
-import imageio
-from IPython.display import HTML, display
 
 
 def DownloadModel(URL, FileName) -> str:
@@ -29,11 +24,9 @@ def DownloadModel(URL, FileName) -> str:
     return f"Pretrained_Models\CheckPoints\{FileName}"
 
 def LoadModel(Address:str): 
-    savedModelPath = os.path.join("Pretrained_Models", "CheckPoints")
     tf.keras.backend.clear_session()
-    Imported = hub.load("https://tfhub.dev/google/movenet/singlepose/lightning/4")
+    Imported = hub.load(Address)
     return Imported
-
 
 
 # Dictionary that maps from joint names to keypoint indices.
@@ -205,8 +198,3 @@ def draw_prediction_on_image(
         image_from_plot, dsize=(output_image_width, output_image_height),
          interpolation=cv2.INTER_CUBIC)
   return image_from_plot
-
-# if __name__ == "__main__":
-#     tf.keras.backend.clear_session()
-#     Imported = hub.load("https://tfhub.dev/google/movenet/singlepose/lightning/4")
-#     tf.saved_model.save(Imported, "/Pretrained_Models/CheckPoints")
